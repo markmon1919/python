@@ -56,8 +56,8 @@ sys.stdout = orig_stdout
 f.close()
 
 fileName = input("Enter filename: ")
-os.system("echo RRD Name,Assigned Role > " + fileName + ".csv")
-os.system("cat " + path + "draft.csv | tr 'b' ',' | tr -d \"'\" | cut -d , -f2,3 | tr -d ' ' | tr '_' ' ' >> " + fileName + ".csv")
+os.system("echo RRD Name,Assigned Role > " + path + fileName + ".csv")
+os.system("cat " + path + "draft.csv | tr 'b' ',' | tr -d \"'\" | cut -d , -f2,3 | tr -d ' ' | tr '_' ' ' >> " + path + fileName + ".csv")
 os.system("rm " + path + "draft.csv")
 
 print("\nSaving " + fileName + ".csv ...\n")

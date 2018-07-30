@@ -31,8 +31,8 @@ shellCommand2 = "cat ~/Desktop/demand-upsert05042018.csv | grep weeks "
 shellCommand2 += "| grep -o " + "\"" + roles + "\""
 shellCommand2 += " | tr ' ' '_'"
 
-mainSourceCol1 = subprocess.check_output(shellCommand1, shell=True).split()	#Assign RRD Column
-mainSourceCol2 = subprocess.check_output(shellCommand2, shell=True).split()	#Assign Role Column
+mainSourceCol1 = subprocess.check_output(shellCommand1, shell=True).split()     #Assign RRD Column
+mainSourceCol2 = subprocess.check_output(shellCommand2, shell=True).split()     #Assign Role Column
 
 ###REDIRECTING OUTPUT TO DRAFT.CSV
 path = "c:\\%HOMEPATH%\\Desktop\\"
@@ -57,9 +57,9 @@ f.close()
 
 fileName = input("Enter filename: ")
 os.system("echo RRD Name,Assigned Role > " + fileName + ".csv")
-os.system("cat ~/Desktop/draft.csv | tr 'b' ',' | tr -d \"'\" | cut -d , -f2,3 | tr -d ' ' | tr '_' ' ' >> " + fileName + ".csv")
-os.system("rm ~/Desktop/draft.csv")
+os.system("cat " + path + "draft.csv | tr 'b' ',' | tr -d \"'\" | cut -d , -f2,3 | tr -d ' ' | tr '_' ' ' >> " + fileName + ".csv")
+os.system("rm " + path + "draft.csv")
 
 print("\nSaving " + fileName + ".csv ...\n")
-print(os.system("cat ~/Desktop/" + fileName + ".csv"))
-os.system("start c:\\%HOMEPATH%\\Desktop\\" + fileName + ".csv")
+print(os.system("cat " + path + fileName + ".csv"))
+os.system("start " + path + fileName + ".csv")

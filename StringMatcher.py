@@ -45,18 +45,27 @@ f = open("draft.csv", "w")
 sys.stdout = f
 
 for i in range(1,len(matchFile)):
-        count=i;
-        if (i==count):
-                for j in range(1,len(mainSourceCol1)):
-                        if (matchFile[count]==mainSourceCol1[j]):
-                                print(matchFile[i],mainSourceCol2[j])
-        count+=1
+        for j in range(0,len(mainSourceCol1)):
+                if (matchFile[i]==mainSourceCol1[j]):
+                        print(matchFile[i],mainSourceCol2[j])
 
 sys.stdout = orig_stdout
 f.close()
 
+###FINAL OUTPUT FILE
 fileName = input("Enter filename: ")
-os.system("echo RRD Name,Assigned Role > " + path + fileName + ".csv")
+with open(fileName + ".csv", "w") as f:
+        print("Filename :", path, file=f)
+
+orig_stdout = sys.stdout
+f = open(fileName + ".csv", "w")
+sys.stdout = f
+
+print("RRD Name,Assigned Role")
+
+sys.stdout = orig_stdout
+f.close()
+
 os.system("cat " + path + "draft.csv | tr 'b' ',' | tr -d \"'\" | cut -d , -f2,3 | tr -d ' ' | tr '_' ' ' >> " + path + fileName + ".csv")
 os.system("rm " + path + "draft.csv")
 

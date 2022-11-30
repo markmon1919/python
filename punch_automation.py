@@ -50,6 +50,7 @@ class PunchAutomation():
 		self.clock_out = self.browser.find_element(By.XPATH, value="//button[@id='GA-clockout-button-topbar']")
 		self.clock_out.click()
 		print("\n[*] - CLOCKING OUT @ " + self.current_time)
+		
 		self.exit()
 
 	def exit(self):

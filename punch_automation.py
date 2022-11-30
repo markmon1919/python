@@ -40,15 +40,15 @@ class PunchAutomation():
 			self.punch_out()
 		
 	def punch_in(self):
-		# self.clock_in = self.browser.find_element(By.XPATH, value="//button[@id='GA-clockin-button-topbar']")
-		# self.clock_in.click()
+		self.clock_in = self.browser.find_element(By.XPATH, value="//button[@id='GA-clockin-button-topbar']")
+		self.clock_in.click()
 		print("\n[*] - CLOCKING IN @ " + self.current_time)
 
 		self.exit()
 
 	def punch_out(self):
-		# self.clock_out = self.browser.find_element(By.XPATH, value="//button[@id='GA-clockout-button-topbar']")
-		# self.clock_out.click()
+		self.clock_out = self.browser.find_element(By.XPATH, value="//button[@id='GA-clockout-button-topbar']")
+		self.clock_out.click()
 		print("\n[*] - CLOCKING OUT @ " + self.current_time)
 		self.exit()
 

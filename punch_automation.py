@@ -10,7 +10,7 @@ import time
 class PunchAutomation():
 
 	def __init__(self):
-		self.website = 'https://portal.empowerteams.io/login'
+		self.website = 'https://yourwebsite.com/login'
 		self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 		self.now = datetime.now()
 		self.current_time = self.now.strftime("%H:%M:%S")
@@ -27,9 +27,9 @@ class PunchAutomation():
 
 	def auth(self):
 		self.username = self.browser.find_element(By.ID, "userName")
-		self.username.send_keys("223915.mmonteros")
+		self.username.send_keys("myusernamehere")
 		self.password = self.browser.find_element(By.ID, "password")
-		self.password.send_keys("m1B`FN^Q")
+		self.password.send_keys("mypasswordhere")
 		self.login = self.browser.find_element(By.XPATH, value="//button[@data-testid='button']")
 		self.login.click()
 

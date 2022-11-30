@@ -70,8 +70,8 @@ if __name__ == '__main__':
 	# 00 00 * * 1-5 /usr/local/bin/python3 <dir_path>/punch_automation.py # run “At 12:00 AM on every day-of-week from Monday through Friday.”
 
 	# ELEMENTS IN WEBSITE
-	# <input autocomplete="off" data-testid="userName" id="userName" type="text" placeholder="Enter your account username" required="" maxlength="50" value="223915.mmonteros">
-	# <input autocomplete="off" data-testid="password" id="password" type="password" placeholder="Enter your password" required="" maxlength="257" value="m1B`FN^Q">
+	# <input autocomplete="off" data-testid="userName" id="userName" type="text" placeholder="Enter your account username" required="" maxlength="50" value="myusernamehere">
+	# <input autocomplete="off" data-testid="password" id="password" type="password" placeholder="Enter your password" required="" maxlength="257" value="mypasswordhere">
 	# <button data-testid="button">Login</button>
 	# <button id="GA-clockin-button-topbar" class="button button-clockin"><div class="icon"></div><span>Clock In</span></button>
 	# <button id="GA-clockout-button-topbar" class="button button-clockout"><div class="icon"></div><span>Clock Out</span></button>

@@ -11,7 +11,7 @@ import time
 class ICAutomationApprover():
 
 	def __init__(self):
-		self.website = 'https://icautomation.cnx.cwp.pnp-hcl.com'
+		self.website = 'https://yourwebsite.com'
 		self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 		self.launch()

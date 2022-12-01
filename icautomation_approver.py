@@ -42,10 +42,18 @@ class ICAutomationApprover():
 		self.time_req = self.browser.find_element(By.XPATH, value="//a[@href='/admin/server_pool?tab=time_requests']")
 		self.time_req.click()
 
-		for _ in range(2):
-			self.approve = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH,'//img[@alt="Accept"][@src="/assets/accept-46faf18ebe19e34487dea3f39bd917aded869b2fedba4b2b13e239406f9f23de.png"]')))
-			self.approve.click()
-			
+		try:
+			self.count = self.browser.find_element(By.XPATH, value="//span[@class='request_badge']")
+			print("\nTotal requests: " + self.count)
+		except:
+			self.count = 'undefined'
+			print("\nNo requests. Exiting...")
+
+		if self.count != 'undefined':
+			for _ in range(self.count):
+				self.approve = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH, "//img[@alt='Accept'][@src='/assets/accept-46faf18ebe19e34487dea3f39bd917aded869b2fedba4b2b13e239406f9f23de.png']")))
+				self.approve.click()
+		
 		self.exit()
 
 	def exit(self):

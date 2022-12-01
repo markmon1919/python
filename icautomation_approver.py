@@ -42,10 +42,11 @@ class ICAutomationApprover():
 		self.time_req = self.browser.find_element(By.XPATH, value="//a[@href='/admin/server_pool?tab=time_requests']")
 		self.time_req.click()
 
-		try:
-			WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH,'//img[@alt="Accept"][@src="/assets/accept-46faf18ebe19e34487dea3f39bd917aded869b2fedba4b2b13e239406f9f23de.png"]'))).click()
-		except:
-			self.exit()
+		for _ in range(2):
+			self.approve = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH,'//img[@alt="Accept"][@src="/assets/accept-46faf18ebe19e34487dea3f39bd917aded869b2fedba4b2b13e239406f9f23de.png"]')))
+			self.approve.click()
+			
+		self.exit()
 
 	def exit(self):
 		time.sleep(10) #comment this for timeout testing only

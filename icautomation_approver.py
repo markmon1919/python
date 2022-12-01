@@ -57,7 +57,7 @@ class ICAutomationApprover():
 		self.exit()
 
 	def exit(self):
-		time.sleep(10) #comment this for timeout testing only
+		# time.sleep(5) #comment this for timeout testing only
 		self.browser.quit()
 
 if __name__ == '__main__':

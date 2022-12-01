@@ -50,13 +50,13 @@ class ICAutomationApprover():
 
 		try:
 			self.count = self.browser.find_element(By.XPATH, value="//span[@class='request_badge']")
-			print("\nTotal requests: " + self.count)
+			print("\nTotal requests: " + self.count.text)
 		except:
 			self.count = 'undefined'
 			print("\nNo requests. Exiting...")
 
 		if self.count != 'undefined':
-			for _ in range(self.count):
+			for _ in range(int(self.count.text)):
 				self.approve = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH, "//img[@alt='Accept'][@src='/assets/accept-46faf18ebe19e34487dea3f39bd917aded869b2fedba4b2b13e239406f9f23de.png']")))
 				self.approve.click()
 		

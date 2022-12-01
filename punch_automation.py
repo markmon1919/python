@@ -3,6 +3,8 @@ __author__ = 'Mark Mon Monteros'
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
 import time
@@ -27,9 +29,9 @@ class PunchAutomation():
 
 	def auth(self):
 		self.username = self.browser.find_element(By.ID, "userName")
-		self.username.send_keys("myusernamehere")
+		self.username.send_keys('myusername')
 		self.password = self.browser.find_element(By.ID, "password")
-		self.password.send_keys("mypasswordhere")
+		self.password.send_keys('mmypassword')
 		self.login = self.browser.find_element(By.XPATH, value="//button[@data-testid='button']")
 		self.login.click()
 
@@ -38,21 +40,29 @@ class PunchAutomation():
 
 		if self.current_time == self.end_shift:
 			self.punch_out()
-			
+
 		self.exit()
-		
+
 	def punch_in(self):
-		self.clock_in = self.browser.find_element(By.XPATH, value="//button[@id='GA-clockin-button-topbar']")
-		self.clock_in.click()
-		print("\n[*] - CLOCKING IN @ " + self.current_time)
+		try:
+			self.clock_in = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockin']")))
+			self.clock_in.click()
+			print("\n[*] - CLOCKING IN @ " + self.current_time)
+		except:
+			print("\n\nERROR during Clock-In!")
+			print("\nCurrent state is Clock-In...")
 
 	def punch_out(self):
-		self.clock_out = self.browser.find_element(By.XPATH, value="//button[@id='GA-clockout-button-topbar']")
-		self.clock_out.click()
-		print("\n[*] - CLOCKING OUT @ " + self.current_time)
+		try:
+			self.clock_out = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockout']")))
+			self.clock_out.click()
+			print("\n[*] - CLOCKING OUT @ " + self.current_time)
+		except:
+			print("\n\nERROR during Clock-Out!")
+			print("\nCurrent state is Clock-Out...")
 
 	def exit(self):
-		time.sleep(10) #comment this for timeout testing only
+		# time.sleep(5) #comment this for timeout testing only
 		self.browser.quit()
 
 if __name__ == '__main__':
@@ -65,7 +75,5 @@ if __name__ == '__main__':
 
 
 	# ADD ENTRIES TO CRONJOB
-	# 55 2 * * 1-5  /usr/local/bin/python3 <dir_path>/punch_automation.py # run “At 02:55 PM on every day-of-week from Monday through Friday.”
-	# 00 00 * * 1-5 /usr/local/bin/python3 <dir_path>/punch_automation.py # run “At 12:00 AM on every day-of-week from Monday through Friday.”
-	
-
+	# 55 2 * * 1-5  /usr/local/bin/python3 ~/Projects/Emapta/punch_automation.py # run “At 02:55 PM on every day-of-week from Monday through Friday.”
+	# 00 00 * * 1-5 /usr/local/bin/python3 ~/Projects/Emapta/punch_automation.py # run “At 12:00 AM on every day-of-week from Monday through Friday.”

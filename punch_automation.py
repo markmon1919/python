@@ -38,20 +38,18 @@ class PunchAutomation():
 
 		if self.current_time == self.end_shift:
 			self.punch_out()
+			
+		self.exit()
 		
 	def punch_in(self):
 		self.clock_in = self.browser.find_element(By.XPATH, value="//button[@id='GA-clockin-button-topbar']")
 		self.clock_in.click()
 		print("\n[*] - CLOCKING IN @ " + self.current_time)
 
-		self.exit()
-
 	def punch_out(self):
 		self.clock_out = self.browser.find_element(By.XPATH, value="//button[@id='GA-clockout-button-topbar']")
 		self.clock_out.click()
 		print("\n[*] - CLOCKING OUT @ " + self.current_time)
-		
-		self.exit()
 
 	def exit(self):
 		time.sleep(10) #comment this for timeout testing only

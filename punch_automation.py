@@ -2,8 +2,8 @@ __author__ = 'Mark Mon Monteros'
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
 import time
 
@@ -58,7 +58,7 @@ class PunchAutomation():
 		self.browser.quit()
 
 if __name__ == '__main__':
-	print('\nPUNNCH AUTOMATION')
+	print('\nPUNCH AUTOMATION')
 	print('\nCreated by: ' + __author__)
 
 	PunchAutomation()
@@ -69,11 +69,5 @@ if __name__ == '__main__':
 	# ADD ENTRIES TO CRONJOB
 	# 55 2 * * 1-5  /usr/local/bin/python3 <dir_path>/punch_automation.py # run “At 02:55 PM on every day-of-week from Monday through Friday.”
 	# 00 00 * * 1-5 /usr/local/bin/python3 <dir_path>/punch_automation.py # run “At 12:00 AM on every day-of-week from Monday through Friday.”
-
-	# ELEMENTS IN WEBSITE
-	# <input autocomplete="off" data-testid="userName" id="userName" type="text" placeholder="Enter your account username" required="" maxlength="50" value="myusernamehere">
-	# <input autocomplete="off" data-testid="password" id="password" type="password" placeholder="Enter your password" required="" maxlength="257" value="mypasswordhere">
-	# <button data-testid="button">Login</button>
-	# <button id="GA-clockin-button-topbar" class="button button-clockin"><div class="icon"></div><span>Clock In</span></button>
-	# <button id="GA-clockout-button-topbar" class="button button-clockout"><div class="icon"></div><span>Clock Out</span></button>
+	
 

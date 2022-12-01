@@ -31,22 +31,28 @@ class PunchAutomation():
 		self.username = self.browser.find_element(By.ID, "userName")
 		self.username.send_keys('myusername')
 		self.password = self.browser.find_element(By.ID, "password")
-		self.password.send_keys('mmypassword')
+		self.password.send_keys('mypassword')
 		self.login = self.browser.find_element(By.XPATH, value="//button[@data-testid='button']")
 		self.login.click()
 
-		if self.current_time == self.start_shift:
-			self.punch_in()
+		try:
+			self.check = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='top-toggle']")))
+			print("\nLogin Success!")
 
-		if self.current_time == self.end_shift:
-			self.punch_out()
+			if self.current_time == self.start_shift:
+				self.punch_in()
+
+			if self.current_time == self.end_shift:
+				self.punch_out()
+		except:
+			print("\nLogin Failed! Invalid username or password")
 
 		self.exit()
 
 	def punch_in(self):
 		try:
 			self.clock_in = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockin']")))
-			self.clock_in.click()
+			# self.clock_in.click()
 			print("\n[*] - CLOCKING IN @ " + self.current_time)
 		except:
 			print("\n\nERROR during Clock-In!")
@@ -55,7 +61,7 @@ class PunchAutomation():
 	def punch_out(self):
 		try:
 			self.clock_out = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockout']")))
-			self.clock_out.click()
+			# self.clock_out.click()
 			print("\n[*] - CLOCKING OUT @ " + self.current_time)
 		except:
 			print("\n\nERROR during Clock-Out!")

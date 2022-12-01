@@ -15,9 +15,9 @@ class PunchAutomation():
 		self.website = 'https://yourwebsite.com/login'
 		self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 		self.now = datetime.now()
-		self.current_time = self.now.strftime("%H:%M:%S")
-		self.start_shift = '14:55:00' # 2:55 PM
-		self.end_shift = '00:00:00' # 12:00 AM
+		self.current_time = self.now.strftime("%H:%M")
+		self.start_shift = '14:55' # 2:55 PM
+		self.end_shift = '00:00' # 12:00 AM
 
 		self.launch()
 

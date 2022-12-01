@@ -41,9 +41,10 @@ class PunchAutomation():
 
 			if self.current_time == self.start_shift:
 				self.punch_in()
-
-			if self.current_time == self.end_shift:
+			elif self.current_time == self.end_shift:
 				self.punch_out()
+			else:
+				print("\nCan't punch incorrect shift schedule.")
 		except:
 			print("\nLogin Failed! Invalid username or password")
 

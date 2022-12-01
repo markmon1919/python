@@ -52,7 +52,7 @@ class PunchAutomation():
 	def punch_in(self):
 		try:
 			self.clock_in = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockin']")))
-			# self.clock_in.click()
+			self.clock_in.click()
 			print("\n[*] - CLOCKING IN @ " + self.current_time)
 		except:
 			print("\n\nERROR during Clock-In!")
@@ -61,7 +61,7 @@ class PunchAutomation():
 	def punch_out(self):
 		try:
 			self.clock_out = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockout']")))
-			# self.clock_out.click()
+			self.clock_out.click()
 			print("\n[*] - CLOCKING OUT @ " + self.current_time)
 		except:
 			print("\n\nERROR during Clock-Out!")

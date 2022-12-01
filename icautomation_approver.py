@@ -11,7 +11,7 @@ import time
 class ICAutomationApprover():
 
 	def __init__(self):
-		self.website = 'https://yourwebsite.com'
+		self.website = 'https://yourwebsitehere.com'
 		self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 		self.launch()
@@ -26,13 +26,19 @@ class ICAutomationApprover():
 		self.login = self.browser.find_element(By.XPATH, value="//a[@href='/users/sign_in']")
 		self.login.click()
 		self.username = self.browser.find_element(By.ID, 'user_email')
-		self.username.send_keys('myuser@email.com')
+		self.username.send_keys('youruser@emailhere.com')
 		self.password = self.browser.find_element(By.ID, 'user_password')
-		self.password.send_keys('mypassword')
+		self.password.send_keys('yourpassword')
 		self.sign_in = self.browser.find_element(By.XPATH, value="//input[@type='submit']")
 		self.sign_in.click()
 
-		self.approve()
+		try:
+			self.check = self.browser.find_element(By.XPATH, value="//img[@class='lotusIcon lotusIconMsgWarning']")
+			print("\nLogin Failed! Invalid email or password.")
+			self.exit()
+		except:
+			print("\nLogin Success!")
+			self.approve()
 		
 	def approve(self):
 		self.admin = self.browser.find_element(By.XPATH, value="//a[@href='/admin']")
@@ -61,10 +67,13 @@ class ICAutomationApprover():
 		self.browser.quit()
 
 if __name__ == '__main__':
-  	print('\nIC AUTOMATION APPROVER')
+	print('\nIC AUTOMATION APPROVER')
 	print('\nCreated by: ' + __author__)
 
 	ICAutomationApprover()
 
 	print('\n\nDONE...!!!\n')
-  
+
+
+	# ADD ENTRIES TO CRONJOB
+	# 55 2 * * 1-5  /usr/local/bin/python3 <dir_path>/icautomation_approver.py # run “At 02:55 PM on every day-of-week from Monday through Friday.”

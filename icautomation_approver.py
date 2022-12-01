@@ -61,7 +61,7 @@ class ICAutomationApprover():
 		self.browser.quit()
 
 if __name__ == '__main__':
-  print('\nIC AUTOMATION APPROVER')
+  	print('\nIC AUTOMATION APPROVER')
 	print('\nCreated by: ' + __author__)
 
 	ICAutomationApprover()

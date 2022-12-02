@@ -15,6 +15,7 @@ class PunchAutomation():
 		self.website = 'https://yourwebsite.com/login'
 		self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 		self.now = datetime.now()
+		print(self.now)
 		self.current_time = self.now.strftime("%H:%M")
 		self.start_shift = '14:55' # 2:55 PM
 		self.end_shift = '00:00' # 12:00 AM
@@ -29,9 +30,9 @@ class PunchAutomation():
 
 	def auth(self):
 		self.username = self.browser.find_element(By.ID, "userName")
-		self.username.send_keys('myusername')
+		self.username.send_keys('my_username')
 		self.password = self.browser.find_element(By.ID, "password")
-		self.password.send_keys('mypassword')
+		self.password.send_keys('my_password')
 		self.login = self.browser.find_element(By.XPATH, value="//button[@data-testid='button']")
 		self.login.click()
 
@@ -82,5 +83,5 @@ if __name__ == '__main__':
 
 
 	# ADD ENTRIES TO CRONJOB
-	# 55 2 * * 1-5  /usr/local/bin/python3 ~/Projects/Emapta/punch_automation.py # run “At 02:55 PM on every day-of-week from Monday through Friday.”
-	# 00 00 * * 1-5 /usr/local/bin/python3 ~/Projects/Emapta/punch_automation.py # run “At 12:00 AM on every day-of-week from Monday through Friday.”
+	# 55 14 * * 1-5  /usr/local/bin/python3 ~/Projects/Emapta/punch_automation.py # run “At 02:55 PM on every day-of-week from Monday through Friday.”
+	# 00 00 * * 2-6 /usr/local/bin/python3 ~/Projects/Emapta/punch_automation.py # run “At 12:00 AM on every day-of-week from Tuesday through Saturday.”

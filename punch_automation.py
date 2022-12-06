@@ -37,7 +37,7 @@ class PunchAutomation():
 		self.login.click()
 
 		try:
-			self.check = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='top-toggle']")))
+			self.check = WebDriverWait(self.browser,10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='top-toggle']")))
 			print("\nLogin Success!")
 
 			if self.current_time == self.start_shift:

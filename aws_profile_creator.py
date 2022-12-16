@@ -131,7 +131,7 @@ class AWSProfileGenerator():
 
         pyperclip.copy(output)
 
-        print('\n[NOTE]: Paste clipboard now to AWS Extend Switch Roles Chrome Extension...\n')
+        print('\nNOTE: Paste clipboard now to AWS Extend Switch Roles Chrome Extension...\n')
 
     def gen_hexcolor(self):
         r = lambda: random.randint(0,255)

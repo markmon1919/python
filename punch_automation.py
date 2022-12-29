@@ -2,6 +2,7 @@ __author__ = 'Mark Mon Monteros'
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,7 +13,7 @@ import time
 class PunchAutomation():
 
 	def __init__(self):
-		self.website = 'https://yourwebsite.com/login'
+		self.website = 'https://portal.empowerteams.io'
 		self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 		self.now = datetime.now()
 		print(self.now)
@@ -23,25 +24,29 @@ class PunchAutomation():
 		self.launch()
 
 	def launch(self):
-		self.browser.get(self.website)
+		self.browser.get(self.website + '/login')
 		self.browser.maximize_window()
 
 		self.auth()
 
 	def auth(self):
 		self.username = self.browser.find_element(By.ID, "userName")
-		self.username.send_keys('my_username')
+		self.username.send_keys('223915.mmonteros')
 		self.password = self.browser.find_element(By.ID, "password")
-		self.password.send_keys('my_password')
+		self.password.send_keys('m1B`FN^Q')
 		self.login = self.browser.find_element(By.XPATH, value="//button[@data-testid='button']")
 		self.login.click()
 
 		try:
-			self.check = WebDriverWait(self.browser,10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='top-toggle']")))
+			self.check = WebDriverWait(self.browser,10).until(EC.element_to_be_clickable((By.XPATH, "//a[@class='link-viewshift ']")))
 			print("\nLogin Success!")
 
 			if self.current_time == self.start_shift:
-				self.punch_in()
+				if self.holiday_check() != 'undefined':
+					print('\nToday is a Holiday: ' + self.holiday.text)
+					self.exit()
+				else:
+					self.punch_in()
 			elif self.current_time == self.end_shift:
 				self.punch_out()
 			else:
@@ -51,9 +56,16 @@ class PunchAutomation():
 
 		self.exit()
 
+	def holiday_check(self):
+		self.browser.get(self.website + '/view-shift-schedule')
+		try:
+			self.holiday = WebDriverWait(self.browser,10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='v2-main']//div[@class='v2-content']//div[@class='row']//div[@class='col-12 content-viewshift']//div[@class='main-viewshift']//div[@class='card']//div[@class='card-content']//div[@class='calendar']//div[@class='calendar-days']//div[@class='calendar-item is-today is-active']//div[@id='holiday-display']//div")))
+		except:
+			return 'undefined'
+
 	def punch_in(self):
 		try:
-			self.clock_in = WebDriverWait(self.browser,3).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockin']")))
+			self.clock_in = WebDriverWait(self.browser,5).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockin']")))
 			self.clock_in.click()
 			print("\n[*] - CLOCKING IN @ " + self.current_time)
 		except:

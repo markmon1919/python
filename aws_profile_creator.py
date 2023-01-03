@@ -12,12 +12,12 @@ class AWSProfileGenerator():
 
     def __init__(self):
         self.org = boto3.client('organizations')
-        homedir = str(Path.home())
+        self.homedir = str(Path.home())
         self.accts = []
         self.acct = ''
         self.region = ''
-        self.aws_cfg = homedir + '/.aws/config'
-        self.ext_cfg = homedir + '/.aws/config-chrome-ext'
+        self.aws_cfg = self.homedir + '/.aws/config'
+        self.ext_cfg = self.homedir + '/.aws/config-chrome-ext'
 
         self.acct = self.pull_accounts()
         self.get_region()
@@ -55,13 +55,13 @@ class AWSProfileGenerator():
     def get_region(self):
         # Download this worksheet --> https://sapphire365.sharepoint.com/sites/SapphireBeyondProgramme/_layouts/15/Doc.aspx?sourcedoc=%7B1417A7B3-CD5E-4ABF-A484-10F5E496496F%7D&file=Sapphire%20BeyondProgramme_Closure.pptx&action=edit&mobileredirect=true&CT=1671183012457&OR=ItemsView
         # Commented codes here are xlsx to csv conversion
-        # xls_file = '/Users/markmon1919/Downloads/Sapphire Migration Inventory.xlsx'
+        # xls_file = self.homedir + '/Downloads/Sapphire Migration Inventory.xlsx'
         # df = pd.read_excel(xls_file, 'Customer Contacts and Plan', index_col=None)
         # warnings.simplefilter(action='ignore', category=UserWarning)
         # df.to_csv(xls_file)
         # df.to_csv(xls_file.replace(xls_file[xls_file.rindex('.'):], '') + '.csv', sep=',', encoding='UTF-8')
 
-        csv_file = '/Users/markmon1919/Downloads/Sapphire Migration Inventory.csv'
+        csv_file = self.homedir + '/Downloads/Sapphire Migration Inventory.csv'
         with open (csv_file, 'r', encoding='UTF-8') as accts_csv:
             df = pd.read_csv(accts_csv)
             df2 = df[['Name', 'AWS MBN Prod Account ', 'Region']]
@@ -80,7 +80,7 @@ class AWSProfileGenerator():
                 print('\nNo Account Data found in CSV File. Please specify region.')
                 self.region = self.input_region()
 
-        print(u"\n\t\u2713 Region: " + self.region)        
+        print(u"\n\t\u2713 Region: " + self.region)
 
     def input_region(self):
         print('\nChoose Region:')
@@ -88,24 +88,24 @@ class AWSProfileGenerator():
         print('\t[2] - us-east-2 (Ohio)')
         print('\t[0] - Specify region name')
         print('\t[Any other keys] - default to eu-west-2 (London)')
-        region = input('\nEnter number: ')
-        match region:
-            case 0:
+        num = input('\nEnter number: ')
+        match num:
+            case "0":
                 region = input('\nEnter region name: ')
                 return region
-            case 1:
+            case "1":
                 region = 'eu-west-2'
                 return region
-            case 2:
+            case "2":
                 region = 'us-east-2'
                 return region
-            case default:
+            case _:
                 region = 'eu-west-2'
                 return region
 
     def add_aws_profile(self):
         with open (self.aws_cfg, 'a') as aws_config:
-            aws_config.write('\n[{profilename}]'.format(profilename=self.acct['Name']))
+            aws_config.write('\n[{profilename}]'.format(profilename=self.acct['Name']).lower())
             aws_config.write('\nrole_arn = arn:aws:iam::{accountId}:role/OrganizationAccountAccessRole'.format(accountId=self.acct['Id']))
             aws_config.write('\nregion = {region}'.format(region=self.region))
             aws_config.write('\nsource_profile = sapphire-payer\r')
@@ -114,7 +114,7 @@ class AWSProfileGenerator():
 
     def add_ext_profile(self):
         with open (self.ext_cfg, 'a') as ext_config:
-            ext_config.write('\n[{profilename}]'.format(profilename=self.acct['Name']))
+            ext_config.write('\n[{profilename}]'.format(profilename=self.acct['Name']).lower())
             ext_config.write('\nrole_arn = arn:aws:iam::{accountId}:role/OrganizationAccountAccessRole'.format(accountId=self.acct['Id']))
             ext_config.write('\nregion = {region}'.format(region=self.region))
             ext_config.write('\ncolor = {color}\r'.format(color=self.gen_hexcolor()))

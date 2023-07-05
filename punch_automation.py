@@ -1,6 +1,7 @@
 __author__ = 'Mark Mon Monteros'
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -13,7 +14,13 @@ class PunchAutomation():
 
 	def __init__(self):
 		self.website = 'https://portal.empowerteams.io'
-		self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+		
+		options = Options()
+		options.add_argument("--no-sandbox")
+		options.add_argument("--disable-dev-shm-usage")
+		options.add_argument("--headless=new")
+		
+		self.browser = webdriver.Chrome(options=options,service=Service(ChromeDriverManager().install()))
 		self.now = datetime.now()
 		print(self.now)
 		self.current_time = self.now.strftime("%H:%M")
@@ -32,7 +39,7 @@ class PunchAutomation():
 		self.username = self.browser.find_element(By.ID, "userName")
 		self.username.send_keys('223915.mmonteros')
 		self.password = self.browser.find_element(By.ID, "password")
-		self.password.send_keys('m1B`FN^Q')
+		self.password.send_keys('`qLs*d2jL1919--')
 		self.login = self.browser.find_element(By.XPATH, value="//button[@data-testid='button']")
 		self.login.click()
 
@@ -78,7 +85,7 @@ class PunchAutomation():
 
 	def punch_in(self):
 		try:
-			self.clock_in = WebDriverWait(self.browser,5).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockin']")))
+			self.clock_in = WebDriverWait(self.browser,10).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockin']")))
 			self.clock_in.click()
 			print("\n[*] - CLOCKING IN @ " + self.current_time)
 		except:
@@ -87,7 +94,7 @@ class PunchAutomation():
 
 	def punch_out(self):
 		try:
-			self.clock_out = WebDriverWait(self.browser,5).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockout']")))
+			self.clock_out = WebDriverWait(self.browser,10).until(EC.element_to_be_clickable((By.XPATH, "//button[@class='button button-clockout']")))
 			self.clock_out.click()
 			print("\n[*] - CLOCKING OUT @ " + self.current_time)
 		except:
